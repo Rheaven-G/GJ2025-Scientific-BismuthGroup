@@ -171,6 +171,10 @@ public class NPC : MonoBehaviour
         state = NPCState.SittingGood;
         myEmotion.SetGoodEmotion(NPCEmotion);
     }
+    public void OnPlantPickup(Plant plant)
+    {
+        HandleLeftPlatAura(plant);
+    }
 
     void OnTriggerEnter(Collider other)
     {
@@ -183,6 +187,7 @@ public class NPC : MonoBehaviour
                 if (state != NPCState.EffectedByPlant)
                 {
                     NPCEffectdByPlant();
+                    plant.AddEffectedNPC(this);
                 }
             }
         }
@@ -192,17 +197,22 @@ public class NPC : MonoBehaviour
         if (state == NPCState.EffectedByPlant && other.gameObject.CompareTag("PlantAura"))
         {
             Plant plant = other.GetComponentInParent<Plant>();
-            if (NPCEmotion == plant.emotionCurer)
-            {
-                if(effectingPlants.Find(savedPlant => savedPlant == plant))
-                {
-                    effectingPlants.Remove(plant);
-                }
+            HandleLeftPlatAura(plant);
+        }
+    }
 
-                if(effectingPlants.Count == 0)
-                {
-                    NPCStopbeingEffectdByPlant();
-                }
+    void HandleLeftPlatAura(Plant plant)
+    {
+        if (NPCEmotion == plant.emotionCurer)
+        {
+            if (effectingPlants.Find(savedPlant => savedPlant == plant))
+            {
+                effectingPlants.Remove(plant);
+            }
+
+            if (effectingPlants.Count == 0)
+            {
+                NPCStopbeingEffectdByPlant();
             }
         }
     }

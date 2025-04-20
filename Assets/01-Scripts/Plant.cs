@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Plant : Selectable
@@ -6,7 +7,7 @@ public class Plant : Selectable
     private GameObject plantAura;
     private int plantLevel = 1;
     public float levelScaleMulti = 0.1f;
-
+    private List<NPC> effectNPCs = new List<NPC>();
     void Start()
     {
         foreach (Transform child in transform)
@@ -25,6 +26,7 @@ public class Plant : Selectable
             isHeld = true;
             originalPos = gameObject.transform.position;
             HideCollider();
+            PlantPickedUp();
         }
         else if (InputHandler.Instance.TryPlaceObject(gameObject))
         {
@@ -60,9 +62,21 @@ public class Plant : Selectable
         plantAura.transform.localScale += plantAura.transform.localScale * (levelScaleMulti* plantLevel);
 
     }
-
+    public void PlantPickedUp()
+    {
+        foreach (NPC npc in effectNPCs)
+        {
+            npc.OnPlantPickup(this);
+        }
+        effectNPCs.Clear();
+    }
     public int GetPlantLevel()
     {
         return plantLevel;
+    }
+
+    public void AddEffectedNPC(NPC npc)
+    {
+        effectNPCs.Add(npc);
     }
 }
