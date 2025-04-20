@@ -113,11 +113,13 @@ public class MetroManager : MonoBehaviour
             {
                 passengers[i].NPCLeaving();
                 passengers.RemoveAt(i);
+                i--;
             }
             else if (passengers[i].GetTimeToStation() <= 0)
             {
                 passengers[i].NPCLeaving();
                 passengers.RemoveAt(i);
+                i--;
             }
 
         }
