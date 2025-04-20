@@ -7,6 +7,7 @@ public class MusicSystem : MonoBehaviour
 {
     public MusicLayer[] musicLayers = null;
     float Fadetime = 0.5f;
+    int currentPhase = 0;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -24,6 +25,12 @@ public class MusicSystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (currentPhase != GameManager.Instance.GetCurrentPhase())
+        {
+            RaiseIntensity(0);
+            currentPhase = GameManager.Instance.GetCurrentPhase();
+        }
+        /*
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             if(RaiseIntensity(0))
@@ -58,6 +65,7 @@ public class MusicSystem : MonoBehaviour
                 Debug.Log(msg);
             }
         }
+        */
     }
     int GetIntencityLevel(int layer)
     {
@@ -77,8 +85,8 @@ public class MusicSystem : MonoBehaviour
             
             toPlay.PlayScheduled(timetoPlay);
 
-            StartCoroutine(FadeOut(currentPlaying, Fadetime));
-            StartCoroutine(FadeIn(toPlay, Fadetime));
+            StartCoroutine(AudioMaster.FadeOut(currentPlaying, Fadetime));
+            StartCoroutine(AudioMaster.FadeIn(toPlay, Fadetime, 1));
             musicLayers[layer].currentIntensity++;
             return true; 
         }
@@ -97,8 +105,8 @@ public class MusicSystem : MonoBehaviour
             double timetoPlay = AudioSettings.dspTime;
             toPlay.PlayScheduled(timetoPlay);
 
-            StartCoroutine(FadeOut(currentPlaying, Fadetime));
-            StartCoroutine(FadeIn(toPlay, Fadetime));
+            StartCoroutine(AudioMaster.FadeOut(currentPlaying, Fadetime));
+            StartCoroutine(AudioMaster.FadeIn(toPlay, Fadetime, 1));
 
             musicLayers[layer].currentIntensity--;
             return true;
@@ -107,26 +115,4 @@ public class MusicSystem : MonoBehaviour
 
     }
 
-
-    public static IEnumerator FadeOut(AudioSource audioSource, float fadeTime)
-    {
-        float startVolume = audioSource.volume;
-        while (audioSource.volume > 0)
-        {
-            audioSource.volume -= startVolume * Time.deltaTime / fadeTime;
-            yield return null;
-        }
-        audioSource.Stop();
-    }
-
-    public static IEnumerator FadeIn(AudioSource audioSource, float fadeTime)
-    {
-        audioSource.Play();
-        audioSource.volume = 0f;
-        while (audioSource.volume < 1)
-        {
-            audioSource.volume += Time.deltaTime / fadeTime;
-            yield return null;
-        }
-    }
 }

@@ -60,6 +60,7 @@ public class Plant : Selectable
             plantLevel++;
         }
         plantAura.transform.localScale += plantAura.transform.localScale * (levelScaleMulti* plantLevel);
+        AudioMaster.Instance.PlantPickupEmotion();
 
     }
     public void PlantPickedUp()
