@@ -60,4 +60,9 @@ public class Plant : Selectable
         plantAura.transform.localScale += plantAura.transform.localScale * (levelScaleMulti* plantLevel);
 
     }
+
+    public int GetPlantLevel()
+    {
+        return plantLevel;
+    }
 }
