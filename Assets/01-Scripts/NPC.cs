@@ -34,6 +34,9 @@ public class NPC : MonoBehaviour
     //Debug
     public TextMesh debugText;
 
+    public Animator anim;
+    public bool isWalking = false;
+
     private NPCState state = NPCState.Arriving;
     private NPCEmotion myEmotion;
     private List<Plant> effectingPlants = new List<Plant>(32);
@@ -74,6 +77,8 @@ public class NPC : MonoBehaviour
         switch (state)
         {
             case NPCState.Arriving:
+                isWalking = true;
+                anim.SetBool("walking", isWalking);
                 MoveToSittingPositing();
                 break;
             case NPCState.EffectedByPlant:
@@ -131,6 +136,9 @@ public class NPC : MonoBehaviour
             emotionCollider.enabled = true;
             bar.gameObject.SetActive(true);
 
+            isWalking = false;
+            anim.SetBool("walking", isWalking);
+
         }
         else
         {
@@ -161,6 +169,9 @@ public class NPC : MonoBehaviour
         myEmotion.gameObject.SetActive(false);
         target = Spawning.Instance.ChooseRandomSpawnPoint();
         emotionCollider.enabled = false;
+
+        isWalking = true;
+        anim.SetBool("walking", isWalking);
     }
     void NPCLeft()
     {
