@@ -1109,8 +1109,12 @@ PrefabInstance:
       value: GAMEMANAGER
       objectReference: {fileID: 0}
     - target: {fileID: 3505151690977373474, guid: f1a2b6aa2f4d1934391f0d586d62108c, type: 3}
+      propertyPath: phase2Threshold
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3505151690977373474, guid: f1a2b6aa2f4d1934391f0d586d62108c, type: 3}
       propertyPath: phase3Threshold
-      value: 20
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 4082186148351886695, guid: f1a2b6aa2f4d1934391f0d586d62108c, type: 3}
       propertyPath: shelves
