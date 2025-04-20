@@ -31,6 +31,9 @@ public class NPC : MonoBehaviour
     //Debug
     public TextMesh debugText;
 
+    public bool isWalking = true;
+    public Animator anim;
+
     private NPCState state = NPCState.Arriving;
     private NPCEmotion myEmotion;
     private List<Plant> effectingPlants = new List<Plant>(32);
@@ -58,7 +61,10 @@ public class NPC : MonoBehaviour
         switch (state)
         {
             case NPCState.Arriving:
+                isWalking = true;
+                anim.SetBool("walking", isWalking);
                 MoveToSittingPositing();
+
                 break;
             case NPCState.EffectedByPlant:
                 timeToStation -= Time.deltaTime;
@@ -114,6 +120,9 @@ public class NPC : MonoBehaviour
             myEmotion.gameObject.SetActive(true);
             MetroManager.Instance.AddNPCToPassangers(this);
 
+            isWalking = false;
+            anim.SetBool("walking", isWalking);
+
         }
         else
         {
@@ -130,6 +139,8 @@ public class NPC : MonoBehaviour
         speed = speed * leavingSpeedMultiplayer;
         myEmotion.gameObject.SetActive(false);
         target = Spawning.Instance.ChooseRandomSpawnPoint();
+        isWalking = true;
+        anim.SetBool("walking", isWalking);
     }
     void NPCLeft()
     {
