@@ -62,7 +62,7 @@ public class MetroManager : MonoBehaviour
         {
             SlowDown();
         }
-        else if(IsStopped == false)
+        else if(!IsStopped)
         {
             StartCoroutine(Stop());
         }
