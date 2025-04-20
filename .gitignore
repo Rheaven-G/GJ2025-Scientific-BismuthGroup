@@ -75,7 +75,7 @@ crashlytics-build.properties
 .idea
 
 # VisualStudio tools
-.vs*
+.vsconfig
 
 # Other Unity Things
 .DS_Store
