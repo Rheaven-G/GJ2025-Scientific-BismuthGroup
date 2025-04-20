@@ -8,6 +8,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/10-Scenes/Master.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/10-Scenes/Menu.unity
+    guid: 32732bf3d32d9d149bf8074d6364aa7f
+  - enabled: 1
+    path: Assets/10-Scenes/master-game_V1.0.unity
+    guid: 4b172e7bf2c316042988c69fcdb1c942
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
