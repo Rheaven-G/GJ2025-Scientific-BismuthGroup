@@ -23,7 +23,6 @@ public class ClicManager : MonoBehaviour
         {
             currentTarget = selection;
         }
-        
         if (currentTarget is not null)
             if (Input.GetMouseButtonDown(0))
                 currentTarget.OnClick();

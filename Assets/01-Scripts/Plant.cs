@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class Plant : Selectable
 {
-
     public override void OnClick()
     {
         //Do Something for the plant
@@ -11,10 +10,15 @@ public class Plant : Selectable
         if (InputHandler.Instance.TryTakeObject())
         {
             isHeld = true;
+            originalPos = gameObject.transform.position;
             HideCollider();
         }
-        else
+        else if (InputHandler.Instance.TryPlaceObject(gameObject))
         {
+            if(InputHandler.Instance.IsBelowShelves(gameObject))
+            {
+                gameObject.transform.position = originalPos;    
+            }
             isHeld = false;
             ShowCollider();
         }
@@ -23,10 +27,12 @@ public class Plant : Selectable
     private void HideCollider()
     {
         col.enabled = false;
+        ridgBody.useGravity = false;
     }
 
     private void ShowCollider()
     {
         col.enabled = true;
+        ridgBody.useGravity = true;
     }
 }
