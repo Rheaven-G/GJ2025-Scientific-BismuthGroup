@@ -976,10 +976,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac774790484544772ac9e46fca2a1117, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Camera: {fileID: 330585545}
   fullscreenShader: {fileID: 2100000, guid: c10fd339c617e4d82abcd34bc770ac7b, type: 2}
   redPlant: {fileID: 8427896893921188259}
   greenPlant: {fileID: 1311179073}
-  bluePlant: {fileID: 0}
+  bluePlant: {fileID: 995026999}
+  theratio: -0.4
+  theoffset: -0.15
+--- !u!114 &995026999 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5028768237446412194, guid: 094a3b83843ab30469734acb64de26ae, type: 3}
+  m_PrefabInstance: {fileID: 562520445}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc1b5ac326de04cc290daa5482897713, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1311179072
 PrefabInstance:
   m_ObjectHideFlags: 0
