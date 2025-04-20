@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 using static NPC;
 
 public class NPC : MonoBehaviour
@@ -33,12 +34,16 @@ public class NPC : MonoBehaviour
     //Debug
     public TextMesh debugText;
 
+    public Animator anim;
+    public bool isWalking = false;
+
     private NPCState state = NPCState.Arriving;
     private NPCEmotion myEmotion;
     private List<Plant> effectingPlants = new List<Plant>(32);
     private float currentTimeUnderPlant = 0;
     private float timeToStation = 0;
     private Collider emotionCollider;
+    private UI bar;
     public float GetTimeToStation()
     { return timeToStation; }
     public NPCState GetNPCState()
@@ -47,6 +52,7 @@ public class NPC : MonoBehaviour
     {
         timeToStation = Random.Range(minTimeToStation, maxTimeToStation);
         myEmotion = gameObject.GetComponentInChildren<NPCEmotion>();
+        
         myEmotion.SetInitialEmotion(NPCEmotion);
         myEmotion.gameObject.SetActive(false);
 
@@ -54,8 +60,16 @@ public class NPC : MonoBehaviour
         emotionCollider = gameObject.GetComponentInChildren<Collider>();
         emotionCollider.enabled = false; //
 
-    }
+        bar = gameObject.GetComponentInChildren<UI>();
 
+
+    }
+    void fillBar()
+    {
+        //debugText.text = currentTimeUnderPlant.ToString();
+        float presentageToflip = Mathf.InverseLerp(0, timeToFlipEmotion, currentTimeUnderPlant)*100;
+        bar.score = presentageToflip;
+    }
     // Update is called once per frame
     void Update()
     {
@@ -63,12 +77,14 @@ public class NPC : MonoBehaviour
         switch (state)
         {
             case NPCState.Arriving:
+                isWalking = true;
+                anim.SetBool("walking", isWalking);
                 MoveToSittingPositing();
                 break;
             case NPCState.EffectedByPlant:
                 timeToStation -= Time.deltaTime;
                 currentTimeUnderPlant += Time.deltaTime;
-                debugText.text = currentTimeUnderPlant.ToString();
+                fillBar();
                 if (currentTimeUnderPlant > timeToFlipEmotion)
                 {
                     NPCFlippedEmotion();
@@ -118,6 +134,10 @@ public class NPC : MonoBehaviour
             myEmotion.gameObject.SetActive(true);
             MetroManager.Instance.AddNPCToPassangers(this);
             emotionCollider.enabled = true;
+            bar.gameObject.SetActive(true);
+
+            isWalking = false;
+            anim.SetBool("walking", isWalking);
 
         }
         else
@@ -149,6 +169,9 @@ public class NPC : MonoBehaviour
         myEmotion.gameObject.SetActive(false);
         target = Spawning.Instance.ChooseRandomSpawnPoint();
         emotionCollider.enabled = false;
+
+        isWalking = true;
+        anim.SetBool("walking", isWalking);
     }
     void NPCLeft()
     {
@@ -159,6 +182,7 @@ public class NPC : MonoBehaviour
     {
         state = NPCState.EffectedByPlant;
         myEmotion.SetEffectByPlant(NPCEmotion);
+ 
     }
     void NPCStopbeingEffectdByPlant()
     {
@@ -170,6 +194,10 @@ public class NPC : MonoBehaviour
     {
         state = NPCState.SittingGood;
         myEmotion.SetGoodEmotion(NPCEmotion);
+    }
+    public void OnPlantPickup(Plant plant)
+    {
+        HandleLeftPlatAura(plant);
     }
 
     void OnTriggerEnter(Collider other)
@@ -183,6 +211,7 @@ public class NPC : MonoBehaviour
                 if (state != NPCState.EffectedByPlant)
                 {
                     NPCEffectdByPlant();
+                    plant.AddEffectedNPC(this);
                 }
             }
         }
@@ -192,17 +221,22 @@ public class NPC : MonoBehaviour
         if (state == NPCState.EffectedByPlant && other.gameObject.CompareTag("PlantAura"))
         {
             Plant plant = other.GetComponentInParent<Plant>();
-            if (NPCEmotion == plant.emotionCurer)
-            {
-                if(effectingPlants.Find(savedPlant => savedPlant == plant))
-                {
-                    effectingPlants.Remove(plant);
-                }
+            HandleLeftPlatAura(plant);
+        }
+    }
 
-                if(effectingPlants.Count == 0)
-                {
-                    NPCStopbeingEffectdByPlant();
-                }
+    void HandleLeftPlatAura(Plant plant)
+    {
+        if (NPCEmotion == plant.emotionCurer)
+        {
+            if (effectingPlants.Find(savedPlant => savedPlant == plant))
+            {
+                effectingPlants.Remove(plant);
+            }
+
+            if (effectingPlants.Count == 0)
+            {
+                NPCStopbeingEffectdByPlant();
             }
         }
     }
