@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 using static NPC;
 
 public class NPC : MonoBehaviour
@@ -39,6 +40,7 @@ public class NPC : MonoBehaviour
     private float currentTimeUnderPlant = 0;
     private float timeToStation = 0;
     private Collider emotionCollider;
+    private UI bar;
     public float GetTimeToStation()
     { return timeToStation; }
     public NPCState GetNPCState()
@@ -47,6 +49,7 @@ public class NPC : MonoBehaviour
     {
         timeToStation = Random.Range(minTimeToStation, maxTimeToStation);
         myEmotion = gameObject.GetComponentInChildren<NPCEmotion>();
+        
         myEmotion.SetInitialEmotion(NPCEmotion);
         myEmotion.gameObject.SetActive(false);
 
@@ -54,8 +57,16 @@ public class NPC : MonoBehaviour
         emotionCollider = gameObject.GetComponentInChildren<Collider>();
         emotionCollider.enabled = false; //
 
-    }
+        bar = gameObject.GetComponentInChildren<UI>();
 
+
+    }
+    void fillBar()
+    {
+        //debugText.text = currentTimeUnderPlant.ToString();
+        float presentageToflip = Mathf.InverseLerp(0, timeToFlipEmotion, currentTimeUnderPlant)*100;
+        bar.score = presentageToflip;
+    }
     // Update is called once per frame
     void Update()
     {
@@ -68,7 +79,7 @@ public class NPC : MonoBehaviour
             case NPCState.EffectedByPlant:
                 timeToStation -= Time.deltaTime;
                 currentTimeUnderPlant += Time.deltaTime;
-                debugText.text = currentTimeUnderPlant.ToString();
+                fillBar();
                 if (currentTimeUnderPlant > timeToFlipEmotion)
                 {
                     NPCFlippedEmotion();
@@ -118,6 +129,7 @@ public class NPC : MonoBehaviour
             myEmotion.gameObject.SetActive(true);
             MetroManager.Instance.AddNPCToPassangers(this);
             emotionCollider.enabled = true;
+            bar.gameObject.SetActive(true);
 
         }
         else
@@ -159,6 +171,7 @@ public class NPC : MonoBehaviour
     {
         state = NPCState.EffectedByPlant;
         myEmotion.SetEffectByPlant(NPCEmotion);
+ 
     }
     void NPCStopbeingEffectdByPlant()
     {

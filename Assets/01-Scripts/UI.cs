@@ -7,7 +7,8 @@ public class UI : MonoBehaviour
     public Image fillImage;
 
     public NPC npc; // Reference to the NPC script
-    public int score = 0;
+    public Canvas canves; // Reference to the NPC script
+    public float score = 0;
 
     private Color startColor = Color.blue;
     private Color endColor = new Color(1f, 0.5f, 0f); // orange
@@ -18,6 +19,10 @@ public class UI : MonoBehaviour
         {
             npc = GetComponentInParent<NPC>(); // auto-assign if not set
         }
+        if (canves == null)
+        {
+            canves = GetComponentInParent<Canvas>(); // auto-assign if not set
+        }
     }
 
     private void Update()
@@ -25,11 +30,9 @@ public class UI : MonoBehaviour
         if (npc == null) return;
 
         // Show the bar only in relevant NPC states
-        bool isVisible = npc.GetNPCState() == NPC.NPCState.SittingBad
-                      || npc.GetNPCState() == NPC.NPCState.EffectedByPlant
-                      || npc.GetNPCState() == NPC.NPCState.SittingGood;
+        bool isVisible = npc.GetNPCState() == NPC.NPCState.EffectedByPlant;
 
-        gameObject.SetActive(isVisible);
+        canves.enabled= isVisible;
 
         if (!isVisible) return;
 
@@ -38,13 +41,5 @@ public class UI : MonoBehaviour
         float t = Mathf.InverseLerp(0, 100, score);
         fillImage.color = Color.Lerp(startColor, endColor, t);
 
-        // Demo: Space key to increase score (you can remove this later)
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (score < 100)
-            {
-                score++;
-            }
-        }
     }
 }
