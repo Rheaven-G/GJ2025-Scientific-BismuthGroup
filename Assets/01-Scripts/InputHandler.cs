@@ -52,8 +52,9 @@ public class InputHandler : MonoBehaviour
     public bool IsBelowShelves(GameObject obj)
     {
         Vector3 objPos = Camera.main.WorldToScreenPoint(obj.transform.position);
+        Vector3 shelvePos = Camera.main.WorldToScreenPoint(shelves.transform.position);
 
-        if (objPos.y < 380) // TODO remove hard coded to check if it is below the shelves
+        if (objPos.y < shelvePos.y) 
         {
             return true;
         }
