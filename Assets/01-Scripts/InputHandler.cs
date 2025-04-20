@@ -1,12 +1,14 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class InputHandler : MonoBehaviour
 {
     public static InputHandler Instance;
 
     #region Properties
-    public GameObject hand; // null if no held object
+    public GameObject hand = null; // null if no held object
+    public GameObject shelves = null; // To make sure we calculate the Y position of the shelves
 
     #endregion
     
@@ -18,15 +20,17 @@ public class InputHandler : MonoBehaviour
 
     void Update()
     {
-        if (hand is not null)
+        if (hand != null)
         {
-            hand.transform.position = Input.mousePosition;
+            Vector3 pos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y,0));
+            pos.z = hand.transform.position.z;
+            hand.transform.position = pos;
         }
     }
 
     public bool TryTakeObject()
     {
-        if (hand is null)
+        if (hand == null)
         {
             hand = ClicManager.Instance.currentTarget.GameObject();
             return true;
@@ -35,13 +39,24 @@ public class InputHandler : MonoBehaviour
     }
 
 
-    public bool TryPlaceObject()
-    {
-        if (hand is null)
+    public bool TryPlaceObject(GameObject obj)
+    {       
+        if (hand != null && obj == hand) // Make sure we place the object above the shelfs
         {
-            return false;
+            hand = null;
+            return true;
         }
-        hand.transform.position = Input.mousePosition;
-        return true;
+        return false;
+    }
+
+    public bool IsBelowShelves(GameObject obj)
+    {
+        Vector3 objPos = Camera.main.WorldToScreenPoint(obj.transform.position);
+
+        if (objPos.y < 380) // TODO remove hard coded to check if it is below the shelves
+        {
+            return true;
+        }
+        return false;
     }
 }
