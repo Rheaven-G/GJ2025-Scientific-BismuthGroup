@@ -194,6 +194,8 @@ public class NPC : MonoBehaviour
     {
         state = NPCState.SittingGood;
         myEmotion.SetGoodEmotion(NPCEmotion);
+        GameManager.Instance.AddPersonHelped();
+        AudioMaster.Instance.PoeopleFlipEmotion();
     }
     public void OnPlantPickup(Plant plant)
     {

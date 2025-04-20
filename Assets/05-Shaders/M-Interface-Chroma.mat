@@ -82,8 +82,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _1_Intensity: 0.33
-    - _2_Intensity: 0.33
+    - _1_Intensity: 0.99
+    - _2_Intensity: 0.99
     - _3_Intensity: 0.33
     - _AddPrecomputedVelocity: 0
     - _AlphaClip: 0
@@ -120,9 +120,9 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _1_Coordinates: {r: -0.44479996, g: -0.15, b: 0, a: 0}
-    - _2_Coordinates: {r: 0.7216, g: -0.15, b: 0, a: 0}
-    - _3_Coordinates: {r: 0, g: -0.2, b: 0, a: 0}
+    - _1_Coordinates: {r: -0.97076976, g: -0.15, b: 0, a: 0}
+    - _2_Coordinates: {r: -0.97076976, g: -0.15, b: 0, a: 0}
+    - _3_Coordinates: {r: -0.66084504, g: -0.15, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

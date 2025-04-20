@@ -21,10 +21,7 @@ public class Spawning : MonoBehaviour
     {
         positions = sittingPositions.GetComponentsInChildren<SittingPosition>();
     }
-
-    void Update()
-    {
-    }
+    
     bool AreThereAvailableSeats()
     {
         for (int i = 0; i < positions.Length; i++)
@@ -50,21 +47,15 @@ public class Spawning : MonoBehaviour
     }
     public GameObject ChooseARandomSeat()
     {
-        while (true)
+        if(AreThereAvailableSeats())
         {
-            if(AreThereAvailableSeats())
+            int randomNumber = Random.Range(0, positions.Length);
+            if (positions[randomNumber].occupied == false)
             {
-                int randomNumber = Random.Range(0, positions.Length);
-                if (positions[randomNumber].occupied == false)
-                {
-                    return positions[randomNumber].gameObject;
-                }
-            }
-            else
-            { 
-                return null;
+                return positions[randomNumber].gameObject;
             }
         }
+        return null;
     }
 
     public void SpawnNPC()

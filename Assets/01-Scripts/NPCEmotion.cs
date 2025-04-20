@@ -39,6 +39,7 @@ public class NPCEmotion : Selectable
         if (npc != null && npc.GetNPCState() == NPC.NPCState.SittingGood)
         {
             npc.NPCGiveEmotionToPlant();
+            AudioMaster.Instance.PlayerPickpuEmotion();
         }
 
     }
