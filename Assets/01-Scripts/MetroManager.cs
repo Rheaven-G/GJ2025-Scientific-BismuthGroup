@@ -97,6 +97,7 @@ public class MetroManager : MonoBehaviour
         if (currentSpeed < 0)
             currentSpeed = 0;
     }
+    
     void MakePassengersEnter()
     {
         for (int i = 1; i < Random.Range(minArrivalPassangers, maxArrivalPassangers); i++)
@@ -107,6 +108,7 @@ public class MetroManager : MonoBehaviour
 
     void MakePassengersLeave()
     {
+        Debug.Log(passengers.Count);
         for (int i = 0; i < passengers.Count; i++)
         {
             if (passengers[i].GetNPCState() == NPC.NPCState.SittingGood 
@@ -125,12 +127,12 @@ public class MetroManager : MonoBehaviour
 
         }
     }
+    
     public void AddNPCToPassangers(NPC npc)
     {
         passengers.Add(npc);
     }
-
-
+    
     // Coroutines
     #region Coroutines
     private IEnumerator Drive()
@@ -154,13 +156,14 @@ public class MetroManager : MonoBehaviour
         // At this point, IsRolling is supposed to be false...
         // IsRolling = false;
         IsStopped = true;
+        IsRolling = false;
         // Waiting for people to enter the metro...
 
         // We stop the current function for a duration...
-        MakePassengersLeave();
         MakePassengersEnter();
-        yield return new WaitForSeconds(stationStopDuration);
+        MakePassengersLeave();
         
+        yield return new WaitForSeconds(stationStopDuration);
         
         // Everyone is on board, we can drive !
         StartCoroutine(Drive());

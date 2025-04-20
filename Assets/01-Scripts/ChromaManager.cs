@@ -51,7 +51,7 @@ public class ChromaManager : MonoBehaviour
                 0f, 0f)
             );
         fullscreenShader.SetVector(
-            "_2_Coordinates", 
+            "_3_Coordinates", 
             oklist[2] + new Vector3(
                 theoffset * bluePlant.GetPlantLevel(), 
                 0f, 0f)
@@ -64,11 +64,11 @@ public class ChromaManager : MonoBehaviour
             );
         fullscreenShader.SetFloat(
             "_2_Intensity", 
-            redPlant.GetPlantLevel() * 0.33f
+            greenPlant.GetPlantLevel() * 0.33f
             );
         fullscreenShader.SetFloat(
             "_3_Intensity", 
-            redPlant.GetPlantLevel() * 0.33f
+            bluePlant.GetPlantLevel() * 0.33f
             );
     }
 }

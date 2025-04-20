@@ -34,7 +34,6 @@ public class ClicManager : MonoBehaviour
 
         if (currentTarget is not null)
         {
-            Debug.Log(currentTarget.name);
             if (Input.GetMouseButtonDown(0))
                 currentTarget.OnClick();
         }
