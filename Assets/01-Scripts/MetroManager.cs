@@ -112,10 +112,12 @@ public class MetroManager : MonoBehaviour
             if (passengers[i].GetNPCState() == NPC.NPCState.SittingGood)
             {
                 passengers[i].NPCLeaving();
+                passengers.RemoveAt(i);
             }
             else if (passengers[i].GetTimeToStation() <= 0)
             {
                 passengers[i].NPCLeaving();
+                passengers.RemoveAt(i);
             }
 
         }
