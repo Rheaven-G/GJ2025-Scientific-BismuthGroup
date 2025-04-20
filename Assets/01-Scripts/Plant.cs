@@ -4,6 +4,8 @@ public class Plant : Selectable
 {
     public NPC.Emotion emotionCurer = NPC.Emotion.Sad;
     private GameObject plantAura;
+    private int plantLevel = 1;
+    public float levelScaleMulti = 0.1f;
 
     void Start()
     {
@@ -26,9 +28,9 @@ public class Plant : Selectable
         }
         else if (InputHandler.Instance.TryPlaceObject(gameObject))
         {
-            if(InputHandler.Instance.IsBelowShelves(gameObject))
+            if (InputHandler.Instance.IsBelowShelves(gameObject))
             {
-                gameObject.transform.position = originalPos;    
+                gameObject.transform.position = originalPos;
             }
             isHeld = false;
             ShowCollider();
@@ -47,5 +49,15 @@ public class Plant : Selectable
         col.enabled = true;
         ridgBody.useGravity = true;
         plantAura.SetActive(true);
+    }
+
+    public void PlantGainGoodEmotion()
+    {
+        if (plantLevel < 3)
+        {
+            plantLevel++;
+        }
+        plantAura.transform.localScale += plantAura.transform.localScale * (levelScaleMulti* plantLevel);
+
     }
 }

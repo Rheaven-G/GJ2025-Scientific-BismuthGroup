@@ -256,6 +256,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  goodEmotionPerfab: {fileID: 2853824598557831428, guid: 00256e7cfb525a147be0f9a5e021b6e4, type: 3}
   speed: 1
   leavingSpeedMultiplayer: 1.5
   arrivingSpeedRandomPersant: 1.5
@@ -423,7 +424,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6599395137804716407, guid: 5a4b6c04ccb3a454788b0a72a81c5207, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 9095716772183070113, guid: 5a4b6c04ccb3a454788b0a72a81c5207, type: 3}
       propertyPath: m_LocalPosition.x
