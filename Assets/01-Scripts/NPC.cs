@@ -10,6 +10,7 @@ public class NPC : MonoBehaviour
         SittingBad,
         EffectedByPlant,
         SittingGood,
+        SittingWaitingToLeave,
         Leaving,
         Left
     }
@@ -21,6 +22,7 @@ public class NPC : MonoBehaviour
     }
 
     public GameObject target;
+    public GameObject goodEmotionPerfab;
     public float speed = 1.0f;
     public float leavingSpeedMultiplayer = 1.5f;
     public float arrivingSpeedRandomPersant = 1.5f;
@@ -75,12 +77,13 @@ public class NPC : MonoBehaviour
             case NPCState.SittingBad:
                 timeToStation -= Time.deltaTime;
                 break;
+            case NPCState.SittingWaitingToLeave:
+                timeToStation -= Time.deltaTime;
+                break;
             case NPCState.Leaving:
                 MoveToLeavingPositing();
                 break;
         }
-
-
     }
     void Move()
     {
@@ -94,7 +97,6 @@ public class NPC : MonoBehaviour
         {
             NPCSatDown();
         }
-
     }
 
     void MoveToLeavingPositing()
@@ -104,7 +106,6 @@ public class NPC : MonoBehaviour
         {
             NPCLeft();
         }
-
     }
 
     void NPCSatDown()
@@ -127,6 +128,19 @@ public class NPC : MonoBehaviour
                 NPCLeaving();
             }    
         }
+    }
+    public void NPCGiveEmotionToPlant()
+    {
+        state = NPCState.SittingWaitingToLeave;
+        //Spawn Good Emotions
+        foreach (Plant plant in effectingPlants)
+        {
+            Vector3 pos = new Vector3(myEmotion.transform.position.x, myEmotion.transform.position.y, myEmotion.transform.position.z - 5.0f);
+            GameObject obj = Instantiate<GameObject>(goodEmotionPerfab, pos, Quaternion.identity);
+            GoodEmotion goodEmotion = obj.GetComponent<GoodEmotion>();
+            goodEmotion.target = plant.gameObject;
+        }
+        
     }
     public void NPCLeaving()
     {

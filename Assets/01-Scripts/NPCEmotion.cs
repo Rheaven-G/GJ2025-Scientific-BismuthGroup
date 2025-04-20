@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NPCEmotion : MonoBehaviour
+public class NPCEmotion : Selectable
 {
 
 
@@ -11,6 +11,7 @@ public class NPCEmotion : MonoBehaviour
 
     private Dictionary<NPC.Emotion, Material[]> emotionMap  = new Dictionary<NPC.Emotion, Material[]>();
     private MeshRenderer mesh = null;
+    private NPC npc;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
@@ -18,6 +19,7 @@ public class NPCEmotion : MonoBehaviour
         emotionMap[NPC.Emotion.Anger] = AngerMaterials;
         emotionMap[NPC.Emotion.Afraid] = AfraidMaterials;
         mesh = gameObject.GetComponent<MeshRenderer>();
+        npc = gameObject.GetComponentInParent<NPC>();
 
     }
     public void SetInitialEmotion(NPC.Emotion emotion)
@@ -31,5 +33,13 @@ public class NPCEmotion : MonoBehaviour
     public void SetGoodEmotion(NPC.Emotion emotion)
     {
         mesh.material = emotionMap[emotion][2];
+    }
+    public override void OnClick()
+    {
+        if (npc != null && npc.GetNPCState() == NPC.NPCState.SittingGood)
+        {
+            npc.NPCGiveEmotionToPlant();
+        }
+
     }
 }

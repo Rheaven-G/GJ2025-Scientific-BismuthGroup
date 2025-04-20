@@ -107,9 +107,10 @@ public class MetroManager : MonoBehaviour
 
     void MakePassengersLeave()
     {
-        for (int i = 0; i < passengers.Count ; i++)
+        for (int i = 0; i < passengers.Count; i++)
         {
-            if (passengers[i].GetNPCState() == NPC.NPCState.SittingGood)
+            if (passengers[i].GetNPCState() == NPC.NPCState.SittingGood 
+                || passengers[i].GetNPCState() == NPC.NPCState.SittingWaitingToLeave)
             {
                 passengers[i].NPCLeaving();
                 passengers.RemoveAt(i);
