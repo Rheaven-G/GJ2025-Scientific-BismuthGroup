@@ -74,5 +74,8 @@ crashlytics-build.properties
 # JetBrain's tools
 .idea
 
+# VisualStudio tools
+.vsconfig
+
 # Other Unity Things
 .DS_Store
