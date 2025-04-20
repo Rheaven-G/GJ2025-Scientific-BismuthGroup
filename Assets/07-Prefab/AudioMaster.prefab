@@ -440,9 +440,11 @@ MonoBehaviour:
   AMBSource: {fileID: 7074801202977438496}
   MetroStop: {fileID: 3780344468054560960}
   SFX: {fileID: 2624849579410174506}
-  peopleSwitchEmotion: {fileID: 8300000, guid: f3aa7a1e1458bf045a4cf282192941d1, type: 3}
-  playerPickupEmotion: {fileID: 8300000, guid: 04dd52589b12240439210b54b593c87a, type: 3}
-  plantPickupEmotion: {fileID: 8300000, guid: 72a4f72dfb418d041b2d79bdb78fd939, type: 3}
+  peopleSwitchEmotion: {fileID: 8300000, guid: d5ed88ce7fcb35b408c90c361f5645dc, type: 3}
+  playerPickupEmotion: {fileID: 8300000, guid: b0d24668fdf16dd46a239a2f68c2fabb, type: 3}
+  plantPickupEmotion: {fileID: 8300000, guid: db899ba973304f247a143d5f087f754f, type: 3}
+  PlantPickUp: {fileID: 8300000, guid: 282b29fee69d5564ab55310f1cfa6ca4, type: 3}
+  PlantPickDrop: {fileID: 8300000, guid: bed88efd820aa1740811bfeb96b40436, type: 3}
 --- !u!114 &7713144053390615818
 MonoBehaviour:
   m_ObjectHideFlags: 0

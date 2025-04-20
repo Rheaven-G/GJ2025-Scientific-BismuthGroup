@@ -9,6 +9,8 @@ public class AudioMaster : MonoBehaviour
     public AudioClip peopleSwitchEmotion;
     public AudioClip playerPickupEmotion;
     public AudioClip plantPickupEmotion;
+    public AudioClip PlantPickUp;
+    public AudioClip PlantPickDrop;
 
     void Awake()
     {
@@ -54,6 +56,14 @@ public class AudioMaster : MonoBehaviour
         SFX.PlayOneShot(plantPickupEmotion);
     }
 
+    public void PlayerPlantPickup()
+    {
+        SFX.PlayOneShot(PlantPickUp);
+    }
+    public void PlayerPlantPickDrop()
+    {
+        SFX.PlayOneShot(PlantPickDrop);
+    }
     // Update is called once per frame
     void Update()
     {

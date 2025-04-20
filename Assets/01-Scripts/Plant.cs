@@ -36,6 +36,7 @@ public class Plant : Selectable
             }
             isHeld = false;
             ShowCollider();
+            AudioMaster.Instance.PlayerPlantPickDrop();
         }
     }
 
@@ -70,6 +71,7 @@ public class Plant : Selectable
             npc.OnPlantPickup(this);
         }
         effectNPCs.Clear();
+        AudioMaster.Instance.PlayerPlantPickup();
     }
     public int GetPlantLevel()
     {

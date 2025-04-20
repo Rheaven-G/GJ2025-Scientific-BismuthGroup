@@ -147,7 +147,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7363730186873958269}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -269,8 +269,8 @@ MonoBehaviour:
   maxTimeToStation: 60
   minTimeToStation: 20
   debugText: {fileID: 2533293650063323224}
-  isWalking: 1
   anim: {fileID: 2740100140056624360}
+  isWalking: 1
 --- !u!135 &2370727705223275385
 SphereCollider:
   m_ObjectHideFlags: 0

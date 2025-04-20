@@ -236,7 +236,7 @@ public class NPC : MonoBehaviour
                 effectingPlants.Remove(plant);
             }
 
-            if (effectingPlants.Count == 0)
+            if (effectingPlants.Count == 0 && state == NPCState.EffectedByPlant)
             {
                 NPCStopbeingEffectdByPlant();
             }
