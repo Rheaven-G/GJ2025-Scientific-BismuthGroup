@@ -4,36 +4,80 @@ using System.Collections.Generic;
 
 public class Spawning : MonoBehaviour
 {
+    public static Spawning Instance;
+
     public GameObject prefabToSpawn;
     public Transform spawnL;
     public Transform spawnR;
-    public GameObject[] positions;
-    public GameObject newObjectL;
+    public GameObject sittingPositions;
+    private SittingPosition[] positions;
 
-
-    public int spawnNumber = 2;
-    private int randomNumber = 0;
-
-
+    void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+    }
     void Start()
     {
-        GenerateNumber();
-        newObjectL = Instantiate<GameObject>(prefabToSpawn, spawnL.position, Quaternion.identity);
-        newObjectL.GetComponent<NPCMovement>().target = positions[randomNumber];
-        //GameObject newObjectR = Instantiate<GameObject>(prefabToSpawn, spawnR.position, Quaternion.identity);
+        positions = sittingPositions.GetComponentsInChildren<SittingPosition>();
     }
 
     void Update()
     {
     }
-
-    void GenerateNumber()
+    bool AreThereAvailableSeats()
     {
-        randomNumber = Random.Range(0, 2);
+        for (int i = 0; i < positions.Length; i++)
+        {
+            if (positions[i].occupied == false)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    public GameObject ChooseRandomSpawnPoint()
+    {
+        int randomNumber = Random.Range(0, 1);
+        if (randomNumber == 0)
+        {
+            return spawnL.gameObject;
+        }
+        else
+        {
+            return spawnL.gameObject;
+        }
+    }
+    public GameObject ChooseARandomSeat()
+    {
+        while (true)
+        {
+            if(AreThereAvailableSeats())
+            {
+                int randomNumber = Random.Range(0, positions.Length);
+                if (positions[randomNumber].occupied == false)
+                {
+                    return positions[randomNumber].gameObject;
+                }
+            }
+            else
+            { 
+                return null;
+            }
+        }
     }
 
-    void Spawn()
+    public void SpawnNPC()
     {
+        GameObject seat = ChooseARandomSeat();
+        if (seat != null)
+        {
+            GameObject spawnlocaton = ChooseRandomSpawnPoint();
+            GameObject obj = Instantiate<GameObject>(prefabToSpawn, spawnlocaton.transform.position, Quaternion.identity);
+            NPC npc = obj.GetComponent<NPC>();
+            
+            npc.target = seat;
+        }
 
     }
 

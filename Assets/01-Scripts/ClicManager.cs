@@ -5,7 +5,7 @@ public class ClicManager : MonoBehaviour
     public static ClicManager Instance;
 
     public Selectable currentTarget;
-    
+    public LayerMask layerMask;
     void Awake()
     {
         if (Instance == null)
@@ -16,13 +16,14 @@ public class ClicManager : MonoBehaviour
     {
         // We register's mouse position to create a ray
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Physics.Raycast(ray, out RaycastHit hit, 30);
-        
+        Physics.Raycast(ray, out RaycastHit hit, 30, layerMask);
+
         // we get the type of object we collide with
-        if (hit.collider.TryGetComponent<Selectable>(out Selectable selection))
+        if (hit.collider && hit.collider.TryGetComponent<Selectable>(out Selectable selection))
         {
             currentTarget = selection;
         }
+
         if (currentTarget is not null)
             if (Input.GetMouseButtonDown(0))
                 currentTarget.OnClick();

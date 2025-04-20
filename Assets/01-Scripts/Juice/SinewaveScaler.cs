@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class SinewaveScaler : MonoBehaviour
 {
-    public float speed = 1;
-    public float newScale = 0.1f;
+    public float speed = 8;
+    public float newScale = 0.003f;
     private Vector3 newScaleVector;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
