@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1976368319521806309}
   - component: {fileID: 3006007709495270363}
   - component: {fileID: 4855962079055106462}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1664643654761663837}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 777d06d2af6403c4a883c81effd6c6f6, type: 3}
   m_Name: 
@@ -413,6 +413,10 @@ PrefabInstance:
       propertyPath: 'SadMaterials.Array.data[2]'
       value: 
       objectReference: {fileID: 2100000, guid: 95173d47ad13b7740865107917c01a12, type: 2}
+    - target: {fileID: 6377857521644732354, guid: 5a4b6c04ccb3a454788b0a72a81c5207, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 1f3e25c7591e7ba41980b48b97da3123, type: 2}
     - target: {fileID: 6599395137804716407, guid: 5a4b6c04ccb3a454788b0a72a81c5207, type: 3}
       propertyPath: m_Name
       value: NPCEmotion
@@ -427,7 +431,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9095716772183070113, guid: 5a4b6c04ccb3a454788b0a72a81c5207, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.673
+      value: 0.806
       objectReference: {fileID: 0}
     - target: {fileID: 9095716772183070113, guid: 5a4b6c04ccb3a454788b0a72a81c5207, type: 3}
       propertyPath: m_LocalPosition.z
