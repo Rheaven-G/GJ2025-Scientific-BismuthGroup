@@ -418,6 +418,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e464355e71486a4fb9d52a04b9b501f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  leftBound: -3.99
+  rightBound: 0.04
   speed: 3
 --- !u!1 &330863963
 GameObject:
@@ -983,6 +985,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GAMEMANAGER
       objectReference: {fileID: 0}
+    - target: {fileID: 4082186148351886695, guid: f1a2b6aa2f4d1934391f0d586d62108c, type: 3}
+      propertyPath: shelves
+      value: 
+      objectReference: {fileID: 8028784866519046823}
     - target: {fileID: 4124543662221778106, guid: f1a2b6aa2f4d1934391f0d586d62108c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1186,6 +1192,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 72387908a0a63c24da9d03d51f8ba952, type: 3}
+--- !u!1 &8028784866519046823 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 149238642726408846, guid: 72387908a0a63c24da9d03d51f8ba952, type: 3}
+  m_PrefabInstance: {fileID: 8028784866519046822}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8427896893921188258
 PrefabInstance:
   m_ObjectHideFlags: 0
