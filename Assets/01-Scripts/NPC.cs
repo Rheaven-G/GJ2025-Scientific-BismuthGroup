@@ -36,6 +36,7 @@ public class NPC : MonoBehaviour
     private List<Plant> effectingPlants = new List<Plant>(32);
     private float currentTimeUnderPlant = 0;
     private float timeToStation = 0;
+    private Collider emotionCollider;
     public float GetTimeToStation()
     { return timeToStation; }
     public NPCState GetNPCState()
@@ -48,6 +49,8 @@ public class NPC : MonoBehaviour
         myEmotion.gameObject.SetActive(false);
 
         speed = speed * Random.Range(1, arrivingSpeedRandomPersant); //Randomize the Speed a bit
+        emotionCollider = gameObject.GetComponentInChildren<Collider>();
+        emotionCollider.enabled = false; //
 
     }
 
@@ -113,6 +116,7 @@ public class NPC : MonoBehaviour
             state = NPCState.SittingBad;
             myEmotion.gameObject.SetActive(true);
             MetroManager.Instance.AddNPCToPassangers(this);
+            emotionCollider.enabled = true;
 
         }
         else
@@ -130,6 +134,7 @@ public class NPC : MonoBehaviour
         speed = speed * leavingSpeedMultiplayer;
         myEmotion.gameObject.SetActive(false);
         target = Spawning.Instance.ChooseRandomSpawnPoint();
+        emotionCollider.enabled = false;
     }
     void NPCLeft()
     {
