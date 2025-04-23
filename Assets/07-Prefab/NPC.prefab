@@ -572,7 +572,15 @@ PrefabInstance:
       value: Bar
       objectReference: {fileID: 0}
     - target: {fileID: 3239914518129810965, guid: b6aa69b22e80c14488841aa408232e95, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3239914518129810965, guid: b6aa69b22e80c14488841aa408232e95, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3239914518129810965, guid: b6aa69b22e80c14488841aa408232e95, type: 3}
+      propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5016499820717905939, guid: b6aa69b22e80c14488841aa408232e95, type: 3}

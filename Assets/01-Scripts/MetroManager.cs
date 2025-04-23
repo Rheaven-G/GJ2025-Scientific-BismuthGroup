@@ -6,6 +6,13 @@ using UnityEngine.UIElements;
 
 public class MetroManager : MonoBehaviour
 {
+    public enum MetroState
+    {
+        SpeedingUp,
+        SlowingDown,
+        Going,
+        Stopped
+    }
     // So there can only be one MetroManager
     public static MetroManager Instance;
 
@@ -18,6 +25,7 @@ public class MetroManager : MonoBehaviour
     public float maxSpeed = 3f;
     public int minArrivalPassangers = 3;
     public int maxArrivalPassangers = 7;
+    public int additionPerLevel = 2;
 
 
     [Header("Interactions")]
@@ -32,6 +40,7 @@ public class MetroManager : MonoBehaviour
     #endregion
     private List<NPC> passengers = new List<NPC>(64);
 
+    public MetroState state = MetroState.Stopped;
     void Awake()
     {
         if (Instance == null)
@@ -50,27 +59,38 @@ public class MetroManager : MonoBehaviour
 
         // Update shaderspeed
         windowMaterials.SetFloat("_Speed", currentSpeed);
+
+        Debug.Log(state.ToString());
     }
 
     void FixedUpdate()
     {
         if (IsRolling)
         {
-            Accelerate();
+            if(currentSpeed < maxSpeed)
+            {
+                Accelerate();
+                ChangeMetroState(MetroState.SpeedingUp);
+            }
+            else
+            {
+                ChangeMetroState(MetroState.Going);
+            }    
         }
         else if (!IsRolling && currentSpeed > 0)
         {
             SlowDown();
+            ChangeMetroState(MetroState.SlowingDown);
         }
         else if(!IsStopped)
         {
+            ChangeMetroState(MetroState.Stopped);
             StartCoroutine(Stop());
         }
 
         // We don't want the metro to keep accelerating
         LimitSpeed();
     }
-
 
     // Interactions
     void Accelerate() // Meant for FixedUpdate()
@@ -93,14 +113,38 @@ public class MetroManager : MonoBehaviour
         // from 0 to maxSpeed.
 
         if (currentSpeed > maxSpeed)
-            currentSpeed = maxSpeed;
+        {
+            maxSpeed = currentSpeed;
+        }
         if (currentSpeed < 0)
+        {
             currentSpeed = 0;
+        }
     }
-    
+    void ChangeMetroState(MetroState newState)
+    {
+        if (newState == state)
+        { return; }
+        state = newState;
+
+        if (state == MetroState.SlowingDown)
+        {
+            AudioMaster.Instance.StopMetro();
+        }
+        else if (state == MetroState.SpeedingUp)
+        {
+            AudioMaster.Instance.ResumeMetro();
+        }
+
+        
+
+    }
+
     void MakePassengersEnter()
     {
-        for (int i = 1; i < Random.Range(minArrivalPassangers, maxArrivalPassangers); i++)
+        int min = (additionPerLevel * GameManager.Instance.GetCurrentPhase()) + minArrivalPassangers;
+        int max = (additionPerLevel * GameManager.Instance.GetCurrentPhase()) + maxArrivalPassangers;
+        for (int i = 0; i < Random.Range(min, max); i++)
         {
             Spawning.Instance.SpawnNPC();
         }
@@ -153,6 +197,7 @@ public class MetroManager : MonoBehaviour
     
     private IEnumerator Stop()
     {
+        
         // At this point, IsRolling is supposed to be false...
         // IsRolling = false;
         IsStopped = true;
@@ -160,13 +205,23 @@ public class MetroManager : MonoBehaviour
         // Waiting for people to enter the metro...
 
         // We stop the current function for a duration...
-        MakePassengersEnter();
         MakePassengersLeave();
-        
-        yield return new WaitForSeconds(stationStopDuration);
-        
-        // Everyone is on board, we can drive !
-        StartCoroutine(Drive());
-    }
+
+        if (GameManager.Instance.timeIsUp == true)
+        {
+            yield return new WaitForSeconds(stationStopDuration);
+            GameManager.Instance.GameOver();
+        }
+        else
+        {
+            MakePassengersEnter();
+
+            yield return new WaitForSeconds(stationStopDuration);
+
+            // Everyone is on board, we can drive !
+            StartCoroutine(Drive());
+        }
+    }    
+
     #endregion
 }

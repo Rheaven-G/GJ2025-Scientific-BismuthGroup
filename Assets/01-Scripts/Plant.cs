@@ -6,7 +6,7 @@ public class Plant : Selectable
     public NPC.Emotion emotionCurer = NPC.Emotion.Sad;
     private GameObject plantAura;
     private int plantLevel = 1;
-    public float levelScaleMulti = 0.1f;
+    public float levelScaleMulti = 0.01f;
     private List<NPC> effectNPCs = new List<NPC>();
     void Start()
     {
@@ -60,7 +60,7 @@ public class Plant : Selectable
         {
             plantLevel++;
         }
-        plantAura.transform.localScale += plantAura.transform.localScale * (levelScaleMulti* plantLevel);
+        plantAura.transform.localScale = plantAura.transform.localScale * (1+levelScaleMulti);
         AudioMaster.Instance.PlantPickupEmotion();
 
     }

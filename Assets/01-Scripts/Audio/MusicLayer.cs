@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class MusicLayer : MonoBehaviour
 {
-    [SerializeField]
-    private string Name;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public AudioClip[] musicIntensities = null;
     public AudioSource[] audioSources = null;

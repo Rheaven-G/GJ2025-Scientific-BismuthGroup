@@ -16,6 +16,10 @@ public class MusicSystem : MonoBehaviour
         {
             int currentIntensity = musicLayers[i].currentIntensity;
             musicLayers[i].audioSources[currentIntensity].volume= volume;
+            if (i == 2) // Final Music Hack;
+            {
+                musicLayers[i].audioSources[currentIntensity].volume = 0.4f;
+            }
             musicLayers[i].audioSources[currentIntensity].PlayScheduled(timetoPlay);
         }
 
@@ -85,7 +89,7 @@ public class MusicSystem : MonoBehaviour
             toPlay.PlayScheduled(timetoPlay);
 
             StartCoroutine(AudioMaster.FadeOut(currentPlaying, Fadetime));
-            StartCoroutine(AudioMaster.FadeIn(toPlay, Fadetime, 1));
+            StartCoroutine(AudioMaster.FadeIn(toPlay, Fadetime, volume));
             musicLayers[layer].currentIntensity++;
             return true; 
         }
@@ -105,7 +109,7 @@ public class MusicSystem : MonoBehaviour
             toPlay.PlayScheduled(timetoPlay);
 
             StartCoroutine(AudioMaster.FadeOut(currentPlaying, Fadetime));
-            StartCoroutine(AudioMaster.FadeIn(toPlay, Fadetime, 1));
+            StartCoroutine(AudioMaster.FadeIn(toPlay, Fadetime, volume));
 
             musicLayers[layer].currentIntensity--;
             return true;

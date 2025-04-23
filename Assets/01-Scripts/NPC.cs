@@ -29,8 +29,8 @@ public class NPC : MonoBehaviour
     public float arrivingSpeedRandomPersant = 1.5f;
     public float timeToFlipEmotion = 2.0f;
     public Emotion NPCEmotion;
-    public float maxTimeToStation = 60;
-    public float minTimeToStation = 20;
+    public float maxTimeToStation = 30;
+    public float minTimeToStation = 10;
     //Debug
     public TextMesh debugText;
 
