@@ -5,6 +5,7 @@ public class MusicSystem : MonoBehaviour
     public MusicLayer[] musicLayers = null;
     float Fadetime = 0.5f;
     int currentPhase = 0;
+    public float volume = 0.76f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -14,6 +15,7 @@ public class MusicSystem : MonoBehaviour
         for (int i = 0; i <= musicLayers.Length - 1; i++)
         {
             int currentIntensity = musicLayers[i].currentIntensity;
+            musicLayers[i].audioSources[currentIntensity].volume= volume;
             musicLayers[i].audioSources[currentIntensity].PlayScheduled(timetoPlay);
         }
 

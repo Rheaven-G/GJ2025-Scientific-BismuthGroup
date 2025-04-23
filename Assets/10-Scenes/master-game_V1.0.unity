@@ -1419,6 +1419,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7074801202977438496, guid: 12ef0a74c212ab44f80937f27eaa8f61, type: 3}
+      propertyPath: m_Volume
+      value: 0.342
+      objectReference: {fileID: 0}
+    - target: {fileID: 8429598230619251121, guid: 12ef0a74c212ab44f80937f27eaa8f61, type: 3}
+      propertyPath: m_Volume
+      value: 0.612
+      objectReference: {fileID: 0}
     - target: {fileID: 8589990252379436303, guid: 12ef0a74c212ab44f80937f27eaa8f61, type: 3}
       propertyPath: m_Name
       value: AudioMaster

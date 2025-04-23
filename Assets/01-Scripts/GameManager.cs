@@ -21,11 +21,15 @@ public class GameManager : MonoBehaviour
     public void AddPersonHelped()
     {
         numberOfPeoepleHelped++;
-        if (numberOfPeoepleHelped> phase2Threshold)
+        if (numberOfPeoepleHelped < phase2Threshold)
+        {
+            currentPhase = 0;
+        }
+        else if (numberOfPeoepleHelped > phase2Threshold)
         {
             currentPhase = 1;
         }
-        else if (numberOfPeoepleHelped > phase2Threshold)
+        else
         {
             currentPhase = 2;
         }

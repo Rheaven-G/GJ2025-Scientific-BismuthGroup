@@ -16,8 +16,8 @@ public class SittingPosition : MonoBehaviour
         
     }
 
-    public void SetAsOccupied()
+    public void SetIsOccupied(bool isOccupied)
     {
-        occupied = true;
+        occupied = isOccupied;
     }
 }

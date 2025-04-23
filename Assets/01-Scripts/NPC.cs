@@ -44,6 +44,7 @@ public class NPC : MonoBehaviour
     private float timeToStation = 0;
     private Collider emotionCollider;
     private UI bar;
+    private SittingPosition seat;
     public float GetTimeToStation()
     { return timeToStation; }
     public NPCState GetNPCState()
@@ -126,10 +127,10 @@ public class NPC : MonoBehaviour
 
     void NPCSatDown()
     {
-        SittingPosition sitPos = target.GetComponent<SittingPosition>();
-        if (sitPos.occupied == false)
+        seat = target.GetComponent<SittingPosition>();
+        if (seat.occupied == false)
         {
-            sitPos.SetAsOccupied();
+            seat.SetIsOccupied(true);
             state = NPCState.SittingBad;
             myEmotion.gameObject.SetActive(true);
             MetroManager.Instance.AddNPCToPassangers(this);
@@ -164,6 +165,7 @@ public class NPC : MonoBehaviour
     }
     public void NPCLeaving()
     {
+        seat.SetIsOccupied(false);
         state = NPCState.Leaving;
         speed = speed * leavingSpeedMultiplayer;
         myEmotion.gameObject.SetActive(false);
