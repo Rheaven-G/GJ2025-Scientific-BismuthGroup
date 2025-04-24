@@ -240,7 +240,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isHeld: 0
   emotionCurer: 0
-  levelScaleMulti: 0.001
+  levelScaleMulti: 0.01
 --- !u!1 &5347894338747120608
 GameObject:
   m_ObjectHideFlags: 0

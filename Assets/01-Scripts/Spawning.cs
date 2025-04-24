@@ -47,7 +47,7 @@ public class Spawning : MonoBehaviour
     }
     public GameObject ChooseARandomSeat()
     {
-        if(AreThereAvailableSeats())
+        while(AreThereAvailableSeats())
         {
             int randomNumber = Random.Range(0, positions.Length);
             if (positions[randomNumber].occupied == false)

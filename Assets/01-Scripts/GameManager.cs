@@ -87,10 +87,6 @@ public class GameManager : MonoBehaviour
         gameOverScreen.SetActive(true);
     }
 
-    public void PlayAgain()
-    {
-        SceneManager.LoadScene(0);
-    }
     public int GetCurrentPhase()
     { return currentPhase; }
 }
